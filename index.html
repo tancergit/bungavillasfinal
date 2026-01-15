@@ -1,4 +1,4 @@
-<!doctype html>
+b<!doctype html>
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
@@ -956,7 +956,7 @@ F
       const v = Number(card.getAttribute("data-villa"));
       openGallery(v);
       // set form villa automatically
-      document.getElementById("villaSel").value = `Villa ${v}`;
+      document.getElementById("villaSel").value = villaLabel(v);
       document.getElementById("call").scrollIntoView({behavior:"smooth", block:"start"});
     });
 
@@ -1014,6 +1014,7 @@ F
 
 </body>
 </html>
+
 
 
 
