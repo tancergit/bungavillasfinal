@@ -786,12 +786,21 @@
     }
 
     const villaSel = document.getElementById("villaSel");
-    for(let i=1;i<=VILLA_COUNT;i++){
-      const opt = document.createElement("option");
-      opt.value = `Villa ${i}`;
-      opt.textContent = `Villa ${i}`;
-      villaSel.appendChild(opt);
-    }
+  const VILLA_CODES = {
+  1: "B104",
+  2: "V102",
+  3: "V106",
+  4: "B106",
+  5: "B110",
+  6: "B103",
+  7: "B107",
+  8: "B110",
+  9: "V105",
+  10: "V103",
+  11: "V104",
+  12: "B108"
+};
+    
 
     function makeVillaCard(v){
       const g = groupForVilla(v);
@@ -996,6 +1005,7 @@
 
 </body>
 </html>
+
 
 
 
