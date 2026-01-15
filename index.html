@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bungavillas |</title>
   <meta name="description" content="Bungavillas — Villalar, galeri, WhatsApp ile hızlı iletişim." />
-
+F
   <style>
     :root{
       --ink:#0b1220;
@@ -785,7 +785,7 @@
       };
     }
 
-    const villaSel = document.getElementById("villaSel");
+    const villaSel = document.getElementById("villaSel").value = villaLabel(v);
     for(let i=1;i<=VILLA_COUNT;i++){
   const opt = document.createElement("option");
   opt.value = villaLabel(i);
@@ -1014,6 +1014,7 @@
 
 </body>
 </html>
+
 
 
 
