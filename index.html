@@ -1,11 +1,11 @@
-b<!doctype html>
+<!doctype html>
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Bungavillas |</title>
   <meta name="description" content="Bungavillas — Villalar, galeri, WhatsApp ile hızlı iletişim." />
-F
+
   <style>
     :root{
       --ink:#0b1220;
@@ -18,7 +18,7 @@ F
       --r2:24px;
       --max:1200px;
 
-      --brand:#16a34a; /* ✅ green button */
+      --brand:#16a34a;
       --brand2:#22c55e;
       --blue:#2563eb;
     }
@@ -38,7 +38,7 @@ F
     a{color:inherit;text-decoration:none}
     .container{max-width:var(--max); margin:0 auto; padding:0 18px;}
 
-    /* HEADER — ✅ only big logo */
+    /* HEADER */
     .topbar{
       position:sticky; top:0; z-index:60;
       background: rgba(255,255,255,.92);
@@ -63,14 +63,6 @@ F
     .brand-title{display:flex; flex-direction:column; line-height:1.05}
     .brand-title b{font-size:18px; letter-spacing:.6px}
     .brand-title small{color:rgba(2,6,23,.55); font-weight:700; margin-top:4px}
-
-    .right-meta{
-      display:flex; align-items:center; gap:10px;
-      color:rgba(2,6,23,.55);
-      font-weight:800;
-      font-size:13px;
-      white-space:nowrap;
-    }
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
@@ -125,18 +117,6 @@ F
       line-height:1.1;
       padding:0 12px;
     }
-    .hero p{
-      position:absolute;
-      left:50%; top:calc(50% + 72px);
-      transform:translateX(-50%);
-      margin:0;
-      text-align:center;
-      color:rgba(255,255,255,.92);
-      font-size: 16px;
-      font-weight:750;
-      text-shadow:0 14px 44px rgba(0,0,0,.5);
-      padding:0 12px;
-    }
 
     section{padding:16px 0}
     .section-title{
@@ -155,7 +135,7 @@ F
     }
     .card-inner{padding:18px}
 
-    /* VILLAS — ✅ 6 on main, other 6 horizontal */
+    /* VILLAS */
     .villas-scroll{
       display:flex;
       gap:14px;
@@ -215,7 +195,6 @@ F
       white-space:nowrap;
     }
 
-    /* ✅ 2x3 boxes under villas (features) */
     .features{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
@@ -242,7 +221,6 @@ F
     }
     .tick svg{width:12px; height:12px; opacity:.95}
 
-    /* ✅ price boxes */
     .prices{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -285,7 +263,6 @@ F
       border-color: rgba(37,99,235,.55);
       box-shadow: 0 0 0 4px rgba(37,99,235,.14)
     }
-    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
     .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
 
     .call-card{
@@ -313,7 +290,7 @@ F
     .stars{letter-spacing:1px; color:#f59e0b}
     .review p{margin:0; color:rgba(2,6,23,.66); line-height:1.65; font-size:13.5px}
 
-    /* ✅ Dernek logos bigger */
+    /* Footer */
     .bottom-row{
       display:flex;
       align-items:center;
@@ -325,10 +302,9 @@ F
       display:flex;
       align-items:center;
       gap:18px;
-    
     }
     .assoc-logos img{
-      height:72px; /* bigger */
+      height:72px;
       opacity:.92;
       filter: saturate(1.02);
       border-radius: 12px;
@@ -336,7 +312,6 @@ F
       background:#fff;
       padding:6px;
     }
-
     footer{
       padding:24px 0 34px;
       border-top: 1px solid rgba(15,23,42,.10);
@@ -362,7 +337,7 @@ F
       border-radius: 22px;
       border:1px solid rgba(255,255,255,.18);
       background: rgba(255,255,255,.92);
-      box-shadow: var(--shadow2);
+      box-shadow: 0 22px 70px rgba(0,0,0,.40);
       overflow:hidden;
       transform: translateY(10px) scale(.98);
       transition: transform .22s ease;
@@ -411,7 +386,7 @@ F
     .ph:hover img{transform: scale(1.06)}
     .hint{margin-top:10px; color: rgba(2,6,23,.60); font-size:12px;}
 
-    /* WhatsApp floating */
+    /* WhatsApp floating (TEK BUTON) */
     .wa-float{
       position:fixed;
       right:16px;
@@ -450,7 +425,6 @@ F
       backdrop-filter: blur(10px);
     }
 
-    /* Responsive */
     @media (max-width: 980px){
       .hero h1{font-size:34px}
       .grid3{grid-template-columns:1fr}
@@ -459,28 +433,6 @@ F
       .reviews{grid-template-columns:1fr}
       .assoc-logos img{height:64px}
     }
-    
-/* WhatsApp Sabit Buton */
-.whatsapp-float{
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  width: 60px;
-  height: 60px;
-  background: #25d366;
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 18px 40px rgba(0,0,0,.25);
-  z-index: 9999;
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-.whatsapp-float:hover{
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 24px 55px rgba(0,0,0,.32);
-}
-
   </style>
 </head>
 
@@ -497,26 +449,21 @@ F
             <small></small>
           </div>
         </a>
-
-        <div class="right-meta" aria-hidden="true">
-          
-        </div>
+        <div class="right-meta" aria-hidden="true"></div>
       </div>
     </div>
   </div>
 
-<!-- Floating Live Support -->
-<a class="wa-float" href="https://wa.me/905064173513" target="_blank" rel="noopener" aria-label="Canlı Destek">
-  <div class="wa-bubble">💬</div>
-  <div class="wa-caption">Canlı Destek</div>
-</a>
-
+  <!-- WhatsApp (TEK BUTON) -->
+  <a class="wa-float" href="https://wa.me/905064173513" target="_blank" rel="noopener" aria-label="Canlı Destek">
+    <div class="wa-bubble">💬</div>
+    <div class="wa-caption">Canlı Destek</div>
+  </a>
 
   <main id="top">
     <div class="container">
       <div class="hero" id="hero">
         <h1>Doğanın Kalbinde<br/>Huzurlu Tatil<br/>0506 417 35 13</h1>
-        <p></p>
       </div>
 
       <!-- VILLAS -->
@@ -525,7 +472,6 @@ F
           <h3>Villalarımız</h3>
           <span>6 villa burada • diğer 6’sı yana kaydır</span>
         </div>
-
         <div class="villas-scroll" id="villasScroll" aria-label="Villa listesi"></div>
       </section>
 
@@ -561,19 +507,17 @@ F
               </button>
 
               <div style="margin-top:10px; color:rgba(2,6,23,.55); font-size:12px; font-weight:750;">
-                <span id="waNumText"></span>
+                WhatsApp: <span id="waNumText">0506 417 35 13</span>
               </div>
             </form>
           </div>
         </div>
 
-        <!-- REVIEWS (✅ name + date) -->
+        <!-- REVIEWS -->
         <div class="reviews" aria-label="Yorumlar">
           <div class="review">
             <div class="top">
-              <div>
-                <b>Ayşe K.</b> <span class="date">• 12.01.2026</span>
-              </div>
+              <div><b>Ayşe K.</b> <span class="date">• 12.01.2026</span></div>
               <span class="stars">★★★★★</span>
             </div>
             <p>Çok temiz ve düzenliydi. İletişim hızlı, ortam sakin. Tekrar gelmek isteriz.</p>
@@ -581,9 +525,7 @@ F
 
           <div class="review">
             <div class="top">
-              <div>
-                <b>Mehmet T.</b> <span class="date">• 05.01.2026</span>
-              </div>
+              <div><b>Mehmet T.</b> <span class="date">• 05.01.2026</span></div>
               <span class="stars">★★★★★</span>
             </div>
             <p>Konforlu ve huzurluydu. Süreç çok kolaydı.</p>
@@ -591,9 +533,7 @@ F
 
           <div class="review">
             <div class="top">
-              <div>
-                <b>Elif S.</b> <span class="date">• 29.12.2025</span>
-              </div>
+              <div><b>Elif S.</b> <span class="date">• 29.12.2025</span></div>
               <span class="stars">★★★★★</span>
             </div>
             <p>Fotoğraflardaki gibi. Sessiz, temiz, düzenli. Tavsiye ederim.</p>
@@ -624,8 +564,6 @@ F
       <footer>
         <div class="bottom-row">
           <div>© <span id="y"></span> Bungavillas • Tüm hakları saklıdır.</div>
-
-          <!-- ✅ bigger and right -->
           <div class="assoc-logos" aria-label="Dernek Logoları">
             <img id="dernek1" alt="Dernek 1">
             <img id="dernek2" alt="Dernek 2">
@@ -654,10 +592,8 @@ F
   </div>
 
   <script>
-    /* ================================
-      ✅ IMPORTANT: FILE NAME FIXER
-      GitHub bazen "1.jpeg" dosyasını "1.jpeg.jpeg" yapıyor.
-      Aşağıdaki fonksiyon, aynı görsel için farklı isimleri dener.
+    /* =================================
+      FILE NAME FIXER (image fallback)
     ================================= */
     function trySetImg(imgEl, candidates, onDone){
       let i = 0;
@@ -693,23 +629,27 @@ F
       });
     }
 
-    /* ====== Settings ====== */
+    function imageCandidates(n){
+      // GitHub bazen uzantıyı iki kere yapabiliyor
+      return [
+        `${n}.jpeg`, `${n}.jpg`, `${n}.png`,
+        `${n}.jpeg.jpeg`, `${n}.jpg.jpg`, `${n}.png.png`
+      ];
+    }
 
-    // ✅ Hero file candidates (kök dizin)
+    /* ====== Top assets ====== */
     const HERO_CANDIDATES = [
       "hero.jpeg", "hero.jpg", "hero.png",
       "banner.jpeg", "banner.jpg", "banner.png",
       "banner.jpeg.jpeg", "hero.jpeg.jpeg"
     ];
 
-    // ✅ Logo file candidates
     const LOGO_CANDIDATES = [
       "logo.jpeg", "logo.jpg", "logo.png",
       "logo.jpeg.jpeg", "logo.jpg.jpg", "logo.png.png",
       "logo.jpeg.png", "logo.jpeg.png.png"
     ];
 
-    // ✅ Dernek logo candidates
     const DERNEK1_CAND = [
       "dernek1.png", "dernek1.jpg", "dernek1.jpeg",
       "dernek1.png.png", "dernek1.png.png.png", "dernek1.jpeg.jpeg"
@@ -719,37 +659,62 @@ F
       "dernek2.png.png", "dernek2.png.png.png", "dernek2.jpeg.jpeg"
     ];
 
-    /* ====== Apply hero & logos ====== */
     (async function initTopAssets(){
-      // Hero background
       const heroUrl = await tryGetUrl(HERO_CANDIDATES);
       if(heroUrl){
         document.getElementById("hero").style.setProperty("--hero-url", `url('${heroUrl}')`);
       }
 
-      // Logo
       trySetImg(document.getElementById("logoImg"), LOGO_CANDIDATES, (src)=>{
         if(!src){
-          // If no logo found, show simple fallback
           document.getElementById("logoImg").style.display = "none";
-          document.querySelector(".mark").textContent = "B";
-          document.querySelector(".mark").style.fontWeight = "950";
-          document.querySelector(".mark").style.fontSize = "24px";
+          const mark = document.querySelector(".mark");
+          mark.textContent = "B";
+          mark.style.fontWeight = "950";
+          mark.style.fontSize = "24px";
         }
       });
 
-      // Dernek logos
       trySetImg(document.getElementById("dernek1"), DERNEK1_CAND);
       trySetImg(document.getElementById("dernek2"), DERNEK2_CAND);
     })();
 
-    /* ================================
-      ✅ VILLAS (12)
-      - Page 1: Villa 1-6 (3x2 grid)
-      - Page 2: Villa 7-12 (3x2 grid) and horizontal swipe
-      - Each villa: 2x3 feature boxes + weekday/weekend price boxes
+    /* =================================
+      VILLAS (12) - her villa ayrı foto seti
+      Foto sistemi:
+      - Villa 1 -> 30-39
+      - Villa 2 -> 40-49
+      - ...
+      - Villa 12 -> 140-149
     ================================= */
     const VILLA_COUNT = 12;
+
+    const VILLA_CODES = {
+      1: "B104",
+      2: "V102",
+      3: "V106",
+      4: "B106",
+      5: "B110",
+      6: "B103",
+      7: "B107",
+      8: "B110",
+      9: "V105",
+      10: "V103",
+      11: "V104",
+      12: "B108"
+    };
+
+    function villaLabel(v){
+      return VILLA_CODES[v] || `Villa ${v}`;
+    }
+
+    // ✅ Her villa 10 foto (30 + (v-1)*10) ... +9
+    function photosForVilla(v){
+      const start = 30 + (v - 1) * 10; // 30,40,50...
+      const arr = [];
+      for(let i=0;i<10;i++) arr.push(start + i);
+      return arr;
+    }
 
     const tickSvg = `
       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -757,26 +722,7 @@ F
       </svg>
     `;
 
-    // ✅ Available photo groups (your note: 1-7, 11-18, 21-28)
-    // We'll reuse these groups across 12 villas (cycling).
-    function groupForVilla(v){ return (v - 1) % 3; } // 0,1,2
-    function groupImages(g){
-      if(g === 0) return [1,2,3,4,5,6,7];               // 1-7
-      if(g === 1) return [11,12,13,14,15,16,17,18];     // 11-18
-      return [21,22,23,24,25,26,27,28];                 // 21-28
-    }
-
-    // For each image number n, try candidates because GitHub can rename.
-    function imageCandidates(n){
-      return [
-        `${n}.jpeg`, `${n}.jpg`, `${n}.png`,
-        `${n}.jpeg.jpeg`, `${n}.jpg.jpg`, `${n}.png.png`
-      ];
-    }
-
-    // Pricing demo (you can change later)
     function priceFor(v){
-      // simple deterministic example
       const base = 4500 + (v * 250);
       const weekend = base + 800;
       return {
@@ -785,35 +731,18 @@ F
       };
     }
 
-    const villaSel = document.getElementById("villaSel").value = villaLabel(v);
+    // Select doldur
+    const villaSel = document.getElementById("villaSel");
+    villaSel.innerHTML = "";
     for(let i=1;i<=VILLA_COUNT;i++){
-  const opt = document.createElement("option");
-  opt.value = villaLabel(i);
-  opt.textContent = villaLabel(i);
-  villaSel.appendChild(opt);
-}
-  const VILLA_CODES = {
-    function villaLabel(v){
-  return VILLA_CODES[v] || `Villa ${v}`;
-}
-  1: "B104",
-  2: "V102",
-  3: "V106",
-  4: "B106",
-  5: "B110",
-  6: "B103",
-  7: "B107",
-  8: "B110",
-  9: "V105",
-  10: "V103",
-  11: "V104",
-  12: "B108"
-};
-    
+      const opt = document.createElement("option");
+      opt.value = villaLabel(i);
+      opt.textContent = villaLabel(i);
+      villaSel.appendChild(opt);
+    }
 
     function makeVillaCard(v){
-      const g = groupForVilla(v);
-      const imgNums = groupImages(g);
+      const imgNums = photosForVilla(v);
       const coverNum = imgNums[0];
       const prices = priceFor(v);
 
@@ -842,31 +771,18 @@ F
         </div>
 
         <div class="prices">
-          <div class="price">
-            <div>
-              <small>Hafta İçi</small>
-              <b>${prices.weekday}</b>
-            </div>
-          </div>
-          <div class="price">
-            <div>
-              <small>Hafta Sonu</small>
-              <b>${prices.weekend}</b>
-            </div>
-          </div>
+          <div class="price"><div><small>Hafta İçi</small><b>${prices.weekday}</b></div></div>
+          <div class="price"><div><small>Hafta Sonu</small><b>${prices.weekend}</b></div></div>
         </div>
       `;
 
-      // Set cover with candidate tries
+      // Kapak görseli
       const dummyImg = document.createElement("img");
-      dummyImg.alt = `Villa ${v} kapak`;
+      dummyImg.alt = `${villaLabel(v)} kapak`;
       trySetImg(dummyImg, imageCandidates(coverNum), (src)=>{
         if(src){
-          imgDiv.style.setProperty("--img", `url('${src}')`);
           imgDiv.style.backgroundImage =
             `linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.10)), url('${src}')`;
-        }else{
-          // fallback gradient already present
         }
       });
 
@@ -876,13 +792,11 @@ F
     }
 
     const villasScroll = document.getElementById("villasScroll");
-
     function makePage(start, end){
       const page = document.createElement("div");
       page.className = "villas-page";
       const grid = document.createElement("div");
       grid.className = "villas-grid";
-
       for(let v=start; v<=end; v++){
         grid.appendChild(makeVillaCard(v));
       }
@@ -890,49 +804,35 @@ F
       return page;
     }
 
-    // ✅ 6 on first page, 6 on second page
+    villasScroll.innerHTML = "";
     villasScroll.appendChild(makePage(1,6));
     villasScroll.appendChild(makePage(7,12));
 
-    /* ================================
-      ✅ MODAL GALLERY (click any villa)
-      Uses grouped images (1-7 / 11-18 / 21-28) and tries filename variants.
+    /* =================================
+      MODAL GALLERY (villa bazlı foto)
     ================================= */
     const modal = document.getElementById("modal");
     const gallery = document.getElementById("gallery");
     const modalTitle = document.getElementById("modalTitle");
     const closeBtn = document.getElementById("closeBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
     let currentVilla = 1;
 
-    function openGallery(v){
-      currentVilla = v;
-      renderGallery(v);
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
-    }
-    function closeModal(){
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden","true");
-      document.body.style.overflow = "";
-    }
-
     function renderGallery(v){
-      modalTitle.textContent = `Villa ${v} Galerisi`;
+      modalTitle.textContent = `${villaLabel(v)} Galerisi`;
       gallery.innerHTML = "";
 
-      const g = groupForVilla(v);
-      const imgNums = groupImages(g);
+      const imgNums = photosForVilla(v);
 
       imgNums.forEach((n) => {
         const wrap = document.createElement("div");
         wrap.className = "ph";
 
         const img = document.createElement("img");
-        img.alt = `Villa ${v} - ${n}`;
+        img.alt = `${villaLabel(v)} - ${n}`;
         img.loading = "lazy";
 
-        // try candidates
         trySetImg(img, imageCandidates(n), (src)=>{
           if(!src){
             img.style.display = "none";
@@ -949,37 +849,55 @@ F
       });
     }
 
-    // Click handlers for villas
+    function openGallery(v){
+      currentVilla = v;
+      renderGallery(v);
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden","true");
+      document.body.style.overflow = "";
+    }
+
     villasScroll.addEventListener("click", (e)=>{
       const card = e.target.closest(".villa");
       if(!card) return;
       const v = Number(card.getAttribute("data-villa"));
       openGallery(v);
-      // set form villa automatically
-      document.getElementById("villaSel").value = villaLabel(v);
+      villaSel.value = villaLabel(v);
       document.getElementById("call").scrollIntoView({behavior:"smooth", block:"start"});
     });
 
-    document.getElementById("prevBtn").addEventListener("click", () => {
+    prevBtn.addEventListener("click", () => {
       const v = currentVilla === 1 ? VILLA_COUNT : currentVilla - 1;
-      currentVilla = v; renderGallery(v);
+      currentVilla = v;
+      renderGallery(v);
+      villaSel.value = villaLabel(v);
     });
-    document.getElementById("nextBtn").addEventListener("click", () => {
+
+    nextBtn.addEventListener("click", () => {
       const v = currentVilla === VILLA_COUNT ? 1 : currentVilla + 1;
-      currentVilla = v; renderGallery(v);
+      currentVilla = v;
+      renderGallery(v);
+      villaSel.value = villaLabel(v);
     });
 
     closeBtn.addEventListener("click", closeModal);
     modal.addEventListener("click", (e) => { if(e.target === modal) closeModal(); });
+
     window.addEventListener("keydown", (e) => {
       if(!modal.classList.contains("open")) return;
       if(e.key === "Escape") closeModal();
-      if(e.key === "ArrowLeft") document.getElementById("prevBtn").click();
-      if(e.key === "ArrowRight") document.getElementById("nextBtn").click();
+      if(e.key === "ArrowLeft") prevBtn.click();
+      if(e.key === "ArrowRight") nextBtn.click();
     });
 
-    /* ================================
-      ✅ FORM -> WhatsApp (Sizi Arayalım)
+    /* =================================
+      FORM -> WhatsApp
     ================================= */
     document.getElementById("resForm").addEventListener("submit", (e) => {
       e.preventDefault();
@@ -1005,30 +923,5 @@ F
 
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
-  
-  <svg viewBox="0 0 32 32" width="28" height="28" fill="white">
-    <path d="M19.11 17.44c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.13-.42-2.15-1.33-.79-.7-1.32-1.56-1.48-1.83-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.02-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.27 0 1.34.97 2.63 1.11 2.81.14.18 1.9 2.9 4.6 4.07.64.28 1.14.45 1.53.58.64.2 1.22.17 1.68.1.51-.08 1.6-.65 1.83-1.27.23-.62.23-1.15.16-1.27-.07-.12-.25-.2-.52-.34z"/>
-    <path d="M16.04 3C9.4 3 4 8.4 4 15.04c0 2.66.87 5.11 2.34 7.1L4 29l7.07-2.29c1.94 1.06 4.17 1.67 6.53 1.67 6.64 0 12.04-5.4 12.04-12.04C29.64 8.4 24.24 3 16.04 3zm0 21.84c-2.18 0-4.21-.63-5.93-1.72l-.42-.25-4.19 1.36 1.37-4.08-.27-.42c-1.14-1.77-1.75-3.83-1.75-5.96 0-6.09 4.96-11.05 11.05-11.05 6.09 0 11.05 4.96 11.05 11.05 0 6.09-4.96 11.05-11.05 11.05z"/>
-  </svg>
-</a>
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
