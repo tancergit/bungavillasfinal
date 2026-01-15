@@ -786,11 +786,16 @@
     }
 
     const villaSel = document.getElementById("villaSel");
+    for(let i=1;i<=VILLA_COUNT;i++){
+  const opt = document.createElement("option");
+  opt.value = villaLabel(i);
+  opt.textContent = villaLabel(i);
+  villaSel.appendChild(opt);
+}
   const VILLA_CODES = {
     function villaLabel(v){
   return VILLA_CODES[v] || `Villa ${v}`;
 }
-
   1: "B104",
   2: "V102",
   3: "V106",
@@ -1009,6 +1014,7 @@
 
 </body>
 </html>
+
 
 
 
