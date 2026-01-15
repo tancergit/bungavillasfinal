@@ -787,6 +787,10 @@
 
     const villaSel = document.getElementById("villaSel");
   const VILLA_CODES = {
+    function villaLabel(v){
+  return VILLA_CODES[v] || `Villa ${v}`;
+}
+
   1: "B104",
   2: "V102",
   3: "V106",
@@ -1005,6 +1009,7 @@
 
 </body>
 </html>
+
 
 
 
