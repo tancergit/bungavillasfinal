@@ -631,10 +631,16 @@
 
     function imageCandidates(n){
       // GitHub bazen uzantıyı iki kere yapabiliyor
-      return [
-        `${n}.jpeg`, `${n}.jpg`, `${n}.png`,
-        `${n}.jpeg.jpeg`, `${n}.jpg.jpg`, `${n}.png.png`
-      ];
+       return [
+    `${n}.jpeg`,
+    `${n}.jpeg.webp`,
+    `${n}.webp`,
+    `${n}.jpg`,
+    `${n}.png`,
+    `${n}.jpeg.jpeg`,
+    `${n}.jpg.jpg`,
+    `${n}.png.png`
+  ];
     }
 
     /* ====== Top assets ====== */
@@ -775,7 +781,7 @@ function photosForVilla(v){
 
     function makeVillaCard(v){
       const imgNums = photosForVilla(v);
-      const coverNum = imgNums[0];
+      const coverNum = coverForVilla(v);
       const prices = priceFor(v);
 
       const card = document.createElement("div");
@@ -957,4 +963,5 @@ function photosForVilla(v){
   </script>
 </body>
 </html>
+
 
