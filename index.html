@@ -265,10 +265,7 @@
     }
     .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
 
-    .call-card{
-      max-width: 980px;
-      margin: 0 auto;
-    }
+    .call-card{max-width: 980px; margin: 0 auto;}
 
     /* Reviews */
     .reviews{
@@ -298,11 +295,7 @@
       gap:14px;
       flex-wrap:wrap;
     }
-    .assoc-logos{
-      display:flex;
-      align-items:center;
-      gap:18px;
-    }
+    .assoc-logos{display:flex; align-items:center; gap:18px;}
     .assoc-logos img{
       height:72px;
       opacity:.92;
@@ -630,39 +623,41 @@
     }
 
     function imageCandidates(n){
-      // GitHub bazen uzantıyı iki kere yapabiliyor
-       return [
-    `${n}.jpeg`,
-    `${n}.jpeg.webp`,
-    `${n}.webp`,
-    `${n}.jpg`,
-    `${n}.png`,
-    `${n}.jpeg.jpeg`,
-    `${n}.jpg.jpg`,
-    `${n}.png.png`
-  ];
+      // GitHub bazen "30.jpeg.webp" gibi kaydedebilir
+      return [
+        `${n}.jpeg`,
+        `${n}.jpg`,
+        `${n}.png`,
+        `${n}.webp`,
+        `${n}.jpeg.webp`,
+        `${n}.jpg.webp`,
+        `${n}.png.webp`,
+        `${n}.jpeg.jpeg`,
+        `${n}.jpg.jpg`,
+        `${n}.png.png`
+      ];
     }
 
     /* ====== Top assets ====== */
     const HERO_CANDIDATES = [
-      "hero.jpeg", "hero.jpg", "hero.png",
-      "banner.jpeg", "banner.jpg", "banner.png",
-      "banner.jpeg.jpeg", "hero.jpeg.jpeg"
+      "hero.jpeg","hero.jpg","hero.png","hero.webp",
+      "banner.jpeg","banner.jpg","banner.png","banner.webp",
+      "banner.jpeg.jpeg","hero.jpeg.jpeg"
     ];
 
     const LOGO_CANDIDATES = [
-      "logo.jpeg", "logo.jpg", "logo.png",
-      "logo.jpeg.jpeg", "logo.jpg.jpg", "logo.png.png",
-      "logo.jpeg.png", "logo.jpeg.png.png"
+      "logo.jpeg","logo.jpg","logo.png","logo.webp",
+      "logo.jpeg.jpeg","logo.jpg.jpg","logo.png.png",
+      "logo.jpeg.png","logo.jpeg.png.png"
     ];
 
     const DERNEK1_CAND = [
-      "dernek1.png", "dernek1.jpg", "dernek1.jpeg",
-      "dernek1.png.png", "dernek1.png.png.png", "dernek1.jpeg.jpeg"
+      "dernek1.png","dernek1.jpg","dernek1.jpeg","dernek1.webp",
+      "dernek1.png.png","dernek1.png.png.png","dernek1.jpeg.jpeg"
     ];
     const DERNEK2_CAND = [
-      "dernek2.png", "dernek2.jpg", "dernek2.jpeg",
-      "dernek2.png.png", "dernek2.png.png.png", "dernek2.jpeg.jpeg"
+      "dernek2.png","dernek2.jpg","dernek2.jpeg","dernek2.webp",
+      "dernek2.png.png","dernek2.png.png.png","dernek2.jpeg.jpeg"
     ];
 
     (async function initTopAssets(){
@@ -686,12 +681,9 @@
     })();
 
     /* =================================
-      VILLAS (12) - her villa ayrı foto seti
-      Foto sistemi:
-      - Villa 1 -> 30-39
-      - Villa 2 -> 40-49
-      - ...
-      - Villa 12 -> 140-149
+      VILLAS
+      İlk 6: gerçek foto aralığı
+      7-12: boş kalmasın -> ilk 6 kapaklarından döndür
     ================================= */
     const VILLA_COUNT = 12;
 
@@ -714,46 +706,43 @@
       return VILLA_CODES[v] || `Villa ${v}`;
     }
 
-    // ✅ Her villa 10 foto (30 + (v-1)*10) ... +9
+    // Foto aralıkları (şimdilik ilk 6)
+    const PHOTO_RANGES = {
+      "B104": [1, 9],
+      "V102": [11, 19],
+      "V106": [21, 29],
+      "B106": [30, 39],
+      "B110": [40, 49],
+      "B103": [50, 59],
+    };
+
+    // İlk 6 için kapaklar (aralığın ilk foto'su)
+    const FALLBACK_COVERS = [1, 11, 21, 30, 40, 50];
+
+    function coverForVilla(v){
+      const code = villaLabel(v);
+      const r = PHOTO_RANGES[code];
+      if(r) return r[0]; // gerçek kapak
+      // 7-12 için: ilk 6 kapaklarından döndür
+      return FALLBACK_COVERS[(v - 1) % FALLBACK_COVERS.length];
+    }
+
     function photosForVilla(v){
-     const PHOTO_RANGES = {
-  "B104": [1, 9],
-  "V102": [11, 19],
-  "V106": [21, 29],
-  "B106": [30, 39],
-  "B110": [40, 49],
-  "B103": [50, 59],
-};
+      const code = villaLabel(v);
+      const r = PHOTO_RANGES[code];
 
-// İlk 6 villanın kapak numaraları (cover = aralığın ilk foto)
-const FALLBACK_COVERS = [1, 11, 21, 30, 40, 50];
+      if(r){
+        const [start, end] = r;
+        const arr = [];
+        for(let n=start; n<=end; n++) arr.push(n);
+        // 7-8 foto hedefi: ilk 8'i al (9 varsa 8'e kırpar)
+        return arr.slice(0, 8);
+      }
 
-function coverForVilla(v){
-  const code = villaLabel(v);
-  const r = PHOTO_RANGES[code];
+      // Range yoksa: en az 1 foto (kapak) olsun
+      return [coverForVilla(v)];
+    }
 
-  // İlk 6 (range tanımlıysa) kapağı gerçek kapak olsun
-  if(r) return r[0];
-
-  // 7-12 için: ilk 6 kapaklarından döndür (tekrar ederek)
-  return FALLBACK_COVERS[(v - 1) % FALLBACK_COVERS.length];
-}
-
-function photosForVilla(v){
-  const code = villaLabel(v);
-  const r = PHOTO_RANGES[code];
-
-  // Range varsa: 7-8 foto göster
-  if(r){
-    const [start, end] = r;
-    const arr = [];
-    for(let n=start; n<=end; n++) arr.push(n);
-    return arr.slice(0, 8); // 7-8 foto isteğine uygun
-  }
-
-  // Range yoksa: hiç boş kalmasın diye sadece kapak döndür
-  return [coverForVilla(v)];
-}
     const tickSvg = `
       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M7.8 13.6 4.6 10.4l-1.2 1.2 4.4 4.4L16.8 7l-1.2-1.2-7.8 7.8Z" fill="rgba(2,6,23,.85)"/>
@@ -780,7 +769,6 @@ function photosForVilla(v){
     }
 
     function makeVillaCard(v){
-      const imgNums = photosForVilla(v);
       const coverNum = coverForVilla(v);
       const prices = priceFor(v);
 
@@ -830,11 +818,13 @@ function photosForVilla(v){
     }
 
     const villasScroll = document.getElementById("villasScroll");
+
     function makePage(start, end){
       const page = document.createElement("div");
       page.className = "villas-page";
       const grid = document.createElement("div");
       grid.className = "villas-grid";
+
       for(let v=start; v<=end; v++){
         grid.appendChild(makeVillaCard(v));
       }
@@ -847,7 +837,7 @@ function photosForVilla(v){
     villasScroll.appendChild(makePage(7,12));
 
     /* =================================
-      MODAL GALLERY (villa bazlı foto)
+      MODAL GALLERY
     ================================= */
     const modal = document.getElementById("modal");
     const gallery = document.getElementById("gallery");
@@ -963,5 +953,3 @@ function photosForVilla(v){
   </script>
 </body>
 </html>
-
-
