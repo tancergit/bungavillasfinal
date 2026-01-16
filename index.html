@@ -624,18 +624,22 @@
 
     function imageCandidates(n){
       // GitHub bazen "30.jpeg.webp" gibi kaydedebilir
-      return [
-        `${n}.jpeg`,
-        `${n}.jpg`,
-        `${n}.png`,
-        `${n}.webp`,
-        `${n}.jpeg.webp`,
-        `${n}.jpg.webp`,
-        `${n}.png.webp`,
-        `${n}.jpeg.jpeg`,
-        `${n}.jpg.jpg`,
-        `${n}.png.png`
-      ];
+     return [
+    `${n}.jpeg`,
+    `${n}.jpg`,
+    `${n}.png`,
+
+    `${n}.jpeg.webp`,
+    `${n}.jpg.webp`,
+    `${n}.png.webp`,
+
+    `${n}.jpeg.jpg`,
+    `${n}.jpg.jpeg`,
+
+    `${n}.jpeg.jpeg`,
+    `${n}.jpg.jpg`,
+    `${n}.png.png`
+  ];
     }
 
     /* ====== Top assets ====== */
@@ -953,3 +957,4 @@
   </script>
 </body>
 </html>
+
