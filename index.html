@@ -710,12 +710,44 @@
 
     // ✅ Her villa 10 foto (30 + (v-1)*10) ... +9
     function photosForVilla(v){
-      const start = 30 + (v - 1) * 10; // 30,40,50...
-      const arr = [];
-      for(let i=0;i<10;i++) arr.push(start + i);
-      return arr;
-    }
+     const PHOTO_RANGES = {
+  "B104": [1, 9],
+  "V102": [11, 19],
+  "V106": [21, 29],
+  "B106": [30, 39],
+  "B110": [40, 49],
+  "B103": [50, 59],
+};
 
+// İlk 6 villanın kapak numaraları (cover = aralığın ilk foto)
+const FALLBACK_COVERS = [1, 11, 21, 30, 40, 50];
+
+function coverForVilla(v){
+  const code = villaLabel(v);
+  const r = PHOTO_RANGES[code];
+
+  // İlk 6 (range tanımlıysa) kapağı gerçek kapak olsun
+  if(r) return r[0];
+
+  // 7-12 için: ilk 6 kapaklarından döndür (tekrar ederek)
+  return FALLBACK_COVERS[(v - 1) % FALLBACK_COVERS.length];
+}
+
+function photosForVilla(v){
+  const code = villaLabel(v);
+  const r = PHOTO_RANGES[code];
+
+  // Range varsa: 7-8 foto göster
+  if(r){
+    const [start, end] = r;
+    const arr = [];
+    for(let n=start; n<=end; n++) arr.push(n);
+    return arr.slice(0, 8); // 7-8 foto isteğine uygun
+  }
+
+  // Range yoksa: hiç boş kalmasın diye sadece kapak döndür
+  return [coverForVilla(v)];
+}
     const tickSvg = `
       <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M7.8 13.6 4.6 10.4l-1.2 1.2 4.4 4.4L16.8 7l-1.2-1.2-7.8 7.8Z" fill="rgba(2,6,23,.85)"/>
@@ -925,3 +957,4 @@
   </script>
 </body>
 </html>
+
