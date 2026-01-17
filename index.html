@@ -732,16 +732,75 @@
     }
 
     function photosForVilla(v){
-      const code = villaLabel(v);
-      const r = PHOTO_RANGES[code];
+     const VILLA_PHOTOS = {
+  "B104": [
+    "1.jpeg.jpeg",
+    "2.jpeg.jpeg",
+    "3.jpeg.jpeg",
+    "4.jpeg.jpeg",
+    "5.jpeg.jpeg",
+    "6.jpeg.jpeg",
+    "7.jpeg.jpeg"
+  ],
 
-      if(r){
-        const [start, end] = r;
-        const arr = [];
-        for(let n=start; n<=end; n++) arr.push(n);
-        // 7-8 foto hedefi: ilk 8'i al (9 varsa 8'e kırpar)
-        return arr.slice(0, 8);
-      }
+  "V102": [
+    "11.jpeg.jpeg",
+    "12.jpeg.jpeg",
+    "13.jpeg.jpeg",
+    "14.jpeg.jpeg",
+    "15.jpeg.jpeg",
+    "16.jpeg.jpeg",
+    "17.jpeg.jpeg"
+  ],
+
+  "V106": [
+    "21.jpeg.jpeg",
+    "22.jpeg.jpeg",
+    "23.jpeg.jpeg",
+    "24.jpeg.jpeg",
+    "25.jpeg.jpeg",
+    "26.jpeg.jpeg",
+    "27.jpeg.jpeg"
+  ],
+
+  "B106": [
+    "b106-1.jpg",
+    "b106-2.jpg",
+    "b106-3.jpg"
+  ],
+
+  "B108": [
+    "b1080.jpeg.jpg",
+    "b1081.jpeg.jpg",
+    "b1082.jpeg.jpg",
+    "b1083.jpeg.jpg",
+    "b1084.jpeg.jpg",
+    "b1085.jpeg.jpg",
+    "b1086.jpeg.jpg",
+    "b1087.jpeg.jpg"
+  ],
+
+  "V103": [
+    "v103-1.jpg",
+    "v103-2.jpg",
+    "v103-3.jpg",
+    "v1033.jpeg.webp",
+    "v1034.jpeg.webp",
+    "v1035.jpeg.jpg",
+    "v1036.jpeg.jpg"
+  ],
+
+  "V104": [
+    "v1040.jpeg.jpg",
+    "v1041.jpeg.jpg",
+    "v1042.jpeg.jpg",
+    "v1044.jpeg.jpg",
+    "v1045.jpeg.jpg",
+    "v1046.jpeg.webp",
+    "v1047.jpeg.jpg"
+  ]
+};
+
 
       // Range yoksa: en az 1 foto (kapak) olsun
       return [coverForVilla(v)];
@@ -957,4 +1016,5 @@
   </script>
 </body>
 </html>
+
 
