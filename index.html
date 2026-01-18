@@ -685,11 +685,10 @@
     })();
 
    /* =================================
-  VILLAS (9) - dosya adina gore
+  VILLAS (9) - dosya adına göre
 ================================= */
 const VILLA_COUNT = 9;
 
-// Sayfada gözükecek villa kodları (sıra)
 const VILLA_CODES = {
   1: "B104",
   2: "V102",
@@ -706,12 +705,8 @@ function villaLabel(v){
   return VILLA_CODES[v] || `Villa ${v}`;
 }
 
-/* ===== Dosya adayları (karmasık uzantıları da dener) ===== */
 function fileCandidates(name){
-  // name: "40" veya "v103-1.jpg" gibi gelebilir
   const base = String(name);
-
-  // zaten uzantılıysa, aynısını ve "çifte uzantı" varyasyonlarını dene
   const hasExt = /\.[a-z0-9]{2,5}$/i.test(base);
 
   if(hasExt){
@@ -723,13 +718,10 @@ function fileCandidates(name){
     ];
   }
 
-  // uzantısızsa (sadece sayı gibi) olası tüm kombinasyonları dene
   return [
     `${base}.jpg`, `${base}.jpeg`, `${base}.png`, `${base}.webp`,
-
-    // github hataları / dönüştürmeler
-    `${base}.jpeg.jpeg`, `${base}.jpg.jpg`, `${base}.png.png`,
-    `${base}.jpeg.jpg`, `${base}.jpeg.webp`, `${base}.jpg.webp`,
+    `${base}.jpeg.jpeg`, `${base}.jpg.jpg`,
+    `${base}.jpeg.jpg`, `${base}.jpeg.webp`, `${base}.jpg.webp`
   ];
 }
 
@@ -739,47 +731,31 @@ function range(a,b){
   return arr;
 }
 
-/* ===== Her villa için foto listesi =====
-   Not: Number olanlar "1..9" gibi; kod onları fileCandidates ile tüm uzantılarda arar.
-*/
 const VILLA_PHOTOS = {
-  // B104 -> 1..9 (sende 1.jpeg.jpeg gibi duruyor; bu kod hepsini bulur)
-  1: range(1,9),
+  1: range(1,9),          // B104
+  2: range(11,19),        // V102
+  3: range(21,29),        // V106
+  4: range(40,49),        // B110
+  5: range(50,59),        // B103
 
-  // V102 -> 11..19
-  2: range(11,19),
-
-  // V106 -> 21..29
-  3: range(21,29),
-
-  // B110 -> 40..49 (sende 40.jpeg.jpg gibi)
-  4: range(40,49),
-
-  // B103 -> 50..59
-  5: range(50,59),
-
-  // B106 -> b1150..b1156 dan türeyenler + elindeki b106-*.jpg
-  6: [
+  6: [ // B106
     "b106-1.jpg","b106-2.jpg","b106-3.jpg",
     "b1150.jpeg.jpg","b1151.jpeg.jpg","b1152.jpeg.jpg",
     "b1153.jpeg.jpg","b1154.jpeg.jpg","b1155.jpeg.jpg","b1156.jpeg.jpg",
   ],
 
-  // V103 -> senin yazdıkların + repodaki v1030..v1032 varyasyonları da (garanti olsun)
-  7: [
+  7: [ // V103
     "v103-1.jpg","v103-2.jpg","v103-3.jpg",
     "v1030.jpeg.webp","v1031.jpeg.jpg","v1032.jpeg.webp",
     "v1033.jpeg.webp","v1034.jpeg.webp","v1035.jpeg.jpg","v1036.jpeg.jpg",
   ],
 
-  // V104 -> listende olanlar
-  8: [
+  8: [ // V104
     "v1040.jpeg.jpg","v1041.jpeg.jpg","v1042.jpeg.jpg",
     "v1044.jpeg.jpg","v1045.jpeg.jpg","v1046.jpeg.webp","v1047.jpeg.jpg",
   ],
 
-  // B108 -> listende olanlar
-  9: [
+  9: [ // B108
     "b1080.jpeg.jpg","b1081.jpeg.jpg","b1082.jpeg.jpg","b1083.jpeg.jpg",
     "b1084.jpeg.jpg","b1085.jpeg.jpg","b1086.jpeg.jpg","b1087.jpeg.jpg",
   ],
@@ -788,8 +764,7 @@ const VILLA_PHOTOS = {
 function photosForVilla(v){
   return VILLA_PHOTOS[v] ? [...VILLA_PHOTOS[v]] : [];
 }
-
-
+    
       // Range yoksa: en az 1 foto (kapak) olsun
       return [coverForVilla(v)];
     }
@@ -1004,6 +979,7 @@ function photosForVilla(v){
   </script>
 </body>
 </html>
+
 
 
 
