@@ -622,7 +622,7 @@
       });
     }
 
-    function imageCandidates(n){
+    fileCandidates(
       // GitHub bazen "30.jpeg.webp" gibi kaydedebilir
      return [
     `${n}.jpeg`,
@@ -831,7 +831,7 @@ function photosForVilla(v){
       // Kapak görseli
       const dummyImg = document.createElement("img");
       dummyImg.alt = `${villaLabel(v)} kapak`;
-      trySetImg(dummyImg, imageCandidates(coverNum), (src)=>{
+      trySetImg(dummyImg,fileCandidates(coverNum), (src)=>{
         if(src){
           imgDiv.style.backgroundImage =
             `linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.10)), url('${src}')`;
@@ -979,6 +979,7 @@ function photosForVilla(v){
   </script>
 </body>
 </html>
+
 
 
 
