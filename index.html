@@ -583,402 +583,360 @@
       </div>
     </div>
   </div>
+<script>
+  /* =================================
+    FILE NAME FIXER (image fallback)
+    - Numaralı görseller hem kökte hem /images klasöründe olabilir
+    - Uzantılar karışık olabilir: .jpeg.webp, .jpeg.jpeg, .jpeg.jpg, .jpg, .webp...
+  ================================= */
 
-  <script>
-    /* =================================
-      FILE NAME FIXER (image fallback)
-    ================================= */
-    function trySetImg(imgEl, candidates, onDone){
-      let i = 0;
-      const test = new Image();
-      const next = () => {
-        if(i >= candidates.length){
-          if(onDone) onDone(null);
-          return;
-        }
-        const src = candidates[i++];
-        test.onload = () => {
-          imgEl.src = src;
-          if(onDone) onDone(src);
-        };
-        test.onerror = next;
-        test.src = src;
-      };
-      next();
-    }
-
-    function tryGetUrl(candidates){
-      return new Promise((resolve) => {
-        const t = new Image();
-        let i = 0;
-        const next = () => {
-          if(i >= candidates.length){ resolve(null); return; }
-          const src = candidates[i++];
-          t.onload = () => resolve(src);
-          t.onerror = next;
-          t.src = src;
-        };
-        next();
-      });
-    }
-
-    fileCandidates(
-      // GitHub bazen "30.jpeg.webp" gibi kaydedebilir
-     return [
-    `${n}.jpeg`,
-    `${n}.jpg`,
-    `${n}.png`,
-
-    `${n}.jpeg.webp`,
-    `${n}.jpg.webp`,
-    `${n}.png.webp`,
-
-    `${n}.jpeg.jpg`,
-    `${n}.jpg.jpeg`,
-
-    `${n}.jpeg.jpeg`,
-    `${n}.jpg.jpg`,
-    `${n}.png.png`
-  ];
-    }
-
-    /* ====== Top assets ====== */
-    const HERO_CANDIDATES = [
-      "hero.jpeg","hero.jpg","hero.png","hero.webp",
-      "banner.jpeg","banner.jpg","banner.png","banner.webp",
-      "banner.jpeg.jpeg","hero.jpeg.jpeg"
-    ];
-
-    const LOGO_CANDIDATES = [
-      "logo.jpeg","logo.jpg","logo.png","logo.webp",
-      "logo.jpeg.jpeg","logo.jpg.jpg","logo.png.png",
-      "logo.jpeg.png","logo.jpeg.png.png"
-    ];
-
-    const DERNEK1_CAND = [
-      "dernek1.png","dernek1.jpg","dernek1.jpeg","dernek1.webp",
-      "dernek1.png.png","dernek1.png.png.png","dernek1.jpeg.jpeg"
-    ];
-    const DERNEK2_CAND = [
-      "dernek2.png","dernek2.jpg","dernek2.jpeg","dernek2.webp",
-      "dernek2.png.png","dernek2.png.png.png","dernek2.jpeg.jpeg"
-    ];
-
-    (async function initTopAssets(){
-      const heroUrl = await tryGetUrl(HERO_CANDIDATES);
-      if(heroUrl){
-        document.getElementById("hero").style.setProperty("--hero-url", `url('${heroUrl}')`);
+  function trySetImg(imgEl, candidates, onDone){
+    let i = 0;
+    const test = new Image();
+    const next = () => {
+      if(i >= candidates.length){
+        if(onDone) onDone(null);
+        return;
       }
-
-      trySetImg(document.getElementById("logoImg"), LOGO_CANDIDATES, (src)=>{
-        if(!src){
-          document.getElementById("logoImg").style.display = "none";
-          const mark = document.querySelector(".mark");
-          mark.textContent = "B";
-          mark.style.fontWeight = "950";
-          mark.style.fontSize = "24px";
-        }
-      });
-
-      trySetImg(document.getElementById("dernek1"), DERNEK1_CAND);
-      trySetImg(document.getElementById("dernek2"), DERNEK2_CAND);
-    })();
-
-   /* =================================
-  VILLAS (9) - dosya adına göre
-================================= */
-const VILLA_COUNT = 9;
-
-const VILLA_CODES = {
-  1: "B104",
-  2: "V102",
-  3: "V106",
-  4: "B110",
-  5: "B103",
-  6: "B106",
-  7: "V103",
-  8: "V104",
-  9: "B108",
-};
-
-function villaLabel(v){
-  return VILLA_CODES[v] || `Villa ${v}`;
-}
-
-function fileCandidates(name){
-  const base = String(name);
-  const hasExt = /\.[a-z0-9]{2,5}$/i.test(base);
-
-  if(hasExt){
-    return [
-      base,
-      `${base}.jpg`, `${base}.jpeg`, `${base}.png`, `${base}.webp`,
-      `${base}.jpg.jpg`, `${base}.jpeg.jpeg`, `${base}.png.png`,
-      `${base}.jpeg.jpg`, `${base}.jpeg.webp`, `${base}.jpg.webp`
-    ];
+      const src = candidates[i++];
+      test.onload = () => { imgEl.src = src; if(onDone) onDone(src); };
+      test.onerror = next;
+      test.src = src;
+    };
+    next();
   }
 
-  return [
-    `${base}.jpg`, `${base}.jpeg`, `${base}.png`, `${base}.webp`,
-    `${base}.jpeg.jpeg`, `${base}.jpg.jpg`,
-    `${base}.jpeg.jpg`, `${base}.jpeg.webp`, `${base}.jpg.webp`
-  ];
-}
+  function tryGetUrl(candidates){
+    return new Promise((resolve) => {
+      const t = new Image();
+      let i = 0;
+      const next = () => {
+        if(i >= candidates.length){ resolve(null); return; }
+        const src = candidates[i++];
+        t.onload = () => resolve(src);
+        t.onerror = next;
+        t.src = src;
+      };
+      next();
+    });
+  }
 
-function range(a,b){
-  const arr = [];
-  for(let i=a;i<=b;i++) arr.push(i);
-  return arr;
-}
+  const range = (a,b) => Array.from({length:(b-a+1)}, (_,i)=>a+i);
 
-const VILLA_PHOTOS = {
-  1: range(1,9),          // B104
-  2: range(11,19),        // V102
-  3: range(21,29),        // V106
-  4: range(40,49),        // B110
-  5: range(50,59),        // B103
-
-  6: [ // B106
-    "b106-1.jpg","b106-2.jpg","b106-3.jpg",
-    "b1150.jpeg.jpg","b1151.jpeg.jpg","b1152.jpeg.jpg",
-    "b1153.jpeg.jpg","b1154.jpeg.jpg","b1155.jpeg.jpg","b1156.jpeg.jpg",
-  ],
-
-  7: [ // V103
-    "v103-1.jpg","v103-2.jpg","v103-3.jpg",
-    "v1030.jpeg.webp","v1031.jpeg.jpg","v1032.jpeg.webp",
-    "v1033.jpeg.webp","v1034.jpeg.webp","v1035.jpeg.jpg","v1036.jpeg.jpg",
-  ],
-
-  8: [ // V104
-    "v1040.jpeg.jpg","v1041.jpeg.jpg","v1042.jpeg.jpg",
-    "v1044.jpeg.jpg","v1045.jpeg.jpg","v1046.jpeg.webp","v1047.jpeg.jpg",
-  ],
-
-  9: [ // B108
-    "b1080.jpeg.jpg","b1081.jpeg.jpg","b1082.jpeg.jpg","b1083.jpeg.jpg",
-    "b1084.jpeg.jpg","b1085.jpeg.jpg","b1086.jpeg.jpg","b1087.jpeg.jpg",
-  ],
-};
-
-function photosForVilla(v){
-  return VILLA_PHOTOS[v] ? [...VILLA_PHOTOS[v]] : [];
-}
-    
-      // Range yoksa: en az 1 foto (kapak) olsun
-      return [coverForVilla(v)];
+  function candidatesForPhoto(p){
+    // p: number OR string filename
+    if(typeof p === "number"){
+      const n = p;
+      const bases = [
+        `images/${n}`, `${n}` // önce images/, sonra root
+      ];
+      const exts = [
+        ".jpeg.jpeg",
+        ".jpeg.webp",
+        ".jpeg.jpg",
+        ".jpeg",
+        ".jpg",
+        ".webp",
+        ".png",
+        ".jpg.jpg",
+        ".png.png"
+      ];
+      const out = [];
+      for(const b of bases){
+        for(const e of exts) out.push(`${b}${e}`);
+      }
+      return out;
     }
 
-    const tickSvg = `
-      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        <path d="M7.8 13.6 4.6 10.4l-1.2 1.2 4.4 4.4L16.8 7l-1.2-1.2-7.8 7.8Z" fill="rgba(2,6,23,.85)"/>
-      </svg>
+    // string ise: hem root hem images/ dene
+    const s = String(p).trim();
+    if(!s) return [];
+    if(s.includes("/")) return [s]; // zaten path verilmişse
+
+    return [s, `images/${s}`];
+  }
+
+  /* ====== Top assets ====== */
+  const HERO_CANDIDATES = [
+    "banner.jpeg.jpeg","banner.jpeg","banner.jpg","banner.png",
+    "hero.jpeg","hero.jpg","hero.png","hero.jpeg.jpeg","hero.jpeg.webp"
+  ];
+
+  const LOGO_CANDIDATES = [
+    "logo.jpeg.png","logo.png","logo.jpg","logo.jpeg",
+    "logo.jpeg.jpeg","logo.jpeg.webp","logo.png.png","logo.jpg.jpg"
+  ];
+
+  const DERNEK1_CAND = ["dernek1.png.png.png","dernek1.png","dernek1.jpg","dernek1.jpeg"];
+  const DERNEK2_CAND = ["dernek2.png.png.png","dernek2.png","dernek2.jpg","dernek2.jpeg"];
+
+  (async function initTopAssets(){
+    const heroUrl = await tryGetUrl(HERO_CANDIDATES);
+    if(heroUrl){
+      document.getElementById("hero").style.setProperty("--hero-url", `url('${heroUrl}')`);
+    }
+
+    trySetImg(document.getElementById("logoImg"), LOGO_CANDIDATES, (src)=>{
+      if(!src){
+        document.getElementById("logoImg").style.display = "none";
+        const mark = document.querySelector(".mark");
+        mark.textContent = "B";
+        mark.style.fontWeight = "950";
+        mark.style.fontSize = "24px";
+      }
+    });
+
+    trySetImg(document.getElementById("dernek1"), DERNEK1_CAND);
+    trySetImg(document.getElementById("dernek2"), DERNEK2_CAND);
+  })();
+
+  /* =================================
+    9 VILLA - KODLAR + FOTO LISTELERI
+    (Repo listene göre düzenlendi)
+  ================================= */
+
+  const VILLAS = [
+    { code:"B104", photos: range(1,9) },         // images/1.jpeg.jpeg ... (1-9)
+    { code:"V102", photos: range(11,19) },       // images/11.jpeg.jpeg ...
+    { code:"V106", photos: range(21,29) },       // images/21.jpeg.jpeg ...
+    { code:"B106", photos: [30,31,32,33,34,35,36,37,38,39, "b106-1..jpg","b106-2.jpg","b106-3.jpg"] }, // 30-39 + b106 isimliler
+    { code:"B110", photos: range(40,49) },       // 40.jpeg.jpg ... (root)
+    { code:"B103", photos: range(50,59) },       // 50.jpeg.jpg ... (root)
+    { code:"V103", photos: ["v103-1.jpg","v103-2.jpg","v103-3.jpg","v1033.jpeg.webp","v1034.jpeg.webp","v1035.jpeg.jpg","v1036.jpeg.jpg"] },
+    { code:"V104", photos: ["v1040.jpeg.jpg","v1041.jpeg.jpg","v1042.jpeg.jpg","v1044.jpeg.jpg","v1045.jpeg.jpg","v1046.jpeg.webp","v1047.jpeg.jpg"] },
+    { code:"B108", photos: ["b1080.jpeg.jpg","b1081.jpeg.jpg","b1082.jpeg.jpg","b1083.jpeg.jpg","b1084.jpeg.jpg","b1085.jpeg.jpg","b1086.jpeg.jpg","b1087.jpeg.jpg"] }
+  ];
+
+  const VILLA_COUNT = VILLAS.length;
+
+  function villaLabel(i){
+    return VILLAS[i-1] ? VILLAS[i-1].code : `Villa ${i}`;
+  }
+
+  function photosForVilla(i){
+    const v = VILLAS[i-1];
+    if(!v) return [];
+    // maksimum 8 foto göster (istersen 12 yaparız)
+    return (v.photos || []).slice(0, 8);
+  }
+
+  function coverForVilla(i){
+    const arr = photosForVilla(i);
+    if(arr.length) return arr[0];
+    // boş kalmasın diye ilk villanın kapağı
+    return photosForVilla(1)[0] || 1;
+  }
+
+  const tickSvg = `
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M7.8 13.6 4.6 10.4l-1.2 1.2 4.4 4.4L16.8 7l-1.2-1.2-7.8 7.8Z" fill="rgba(2,6,23,.85)"/>
+    </svg>
+  `;
+
+  function priceFor(i){
+    const base = 4500 + (i * 250);
+    const weekend = base + 800;
+    return {
+      weekday: base.toLocaleString("tr-TR") + " ₺",
+      weekend: weekend.toLocaleString("tr-TR") + " ₺"
+    };
+  }
+
+  /* Select doldur */
+  const villaSel = document.getElementById("villaSel");
+  villaSel.innerHTML = "";
+  for(let i=1;i<=VILLA_COUNT;i++){
+    const opt = document.createElement("option");
+    opt.value = villaLabel(i);
+    opt.textContent = villaLabel(i);
+    villaSel.appendChild(opt);
+  }
+
+  function makeVillaCard(i){
+    const code = villaLabel(i);
+    const cover = coverForVilla(i);
+    const prices = priceFor(i);
+
+    const card = document.createElement("div");
+    card.className = "villa";
+    card.setAttribute("data-villa", String(i));
+
+    const imgDiv = document.createElement("div");
+    imgDiv.className = "villa-img";
+
+    const body = document.createElement("div");
+    body.className = "villa-body";
+    body.innerHTML = `
+      <div class="villa-head">
+        <b>${code}</b>
+        <span class="chip">Galeriyi Aç</span>
+      </div>
+
+      <div class="features">
+        <div class="f"><span class="tick">${tickSvg}</span> Isıtmalı Havuz</div>
+        <div class="f"><span class="tick">${tickSvg}</span> Bahçe</div>
+        <div class="f"><span class="tick">${tickSvg}</span> Jakuzi</div>
+        <div class="f"><span class="tick">${tickSvg}</span> Şömine</div>
+        <div class="f"><span class="tick">${tickSvg}</span> Barbekü</div>
+        <div class="f"><span class="tick">${tickSvg}</span> Oyun Alanı</div>
+      </div>
+
+      <div class="prices">
+        <div class="price"><div><small>Hafta İçi</small><b>${prices.weekday}</b></div></div>
+        <div class="price"><div><small>Hafta Sonu</small><b>${prices.weekend}</b></div></div>
+      </div>
     `;
 
-    function priceFor(v){
-      const base = 4500 + (v * 250);
-      const weekend = base + 800;
-      return {
-        weekday: base.toLocaleString("tr-TR") + " ₺",
-        weekend: weekend.toLocaleString("tr-TR") + " ₺"
-      };
-    }
+    const dummyImg = document.createElement("img");
+    dummyImg.alt = `${code} kapak`;
+    trySetImg(dummyImg, candidatesForPhoto(cover), (src)=>{
+      if(src){
+        imgDiv.style.backgroundImage =
+          `linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.10)), url('${src}')`;
+      }
+    });
 
-    // Select doldur
-    const villaSel = document.getElementById("villaSel");
-    villaSel.innerHTML = "";
-    for(let i=1;i<=VILLA_COUNT;i++){
-      const opt = document.createElement("option");
-      opt.value = villaLabel(i);
-      opt.textContent = villaLabel(i);
-      villaSel.appendChild(opt);
-    }
+    card.appendChild(imgDiv);
+    card.appendChild(body);
+    return card;
+  }
 
-    function makeVillaCard(v){
-      const coverNum = coverForVilla(v);
-      const prices = priceFor(v);
+  const villasScroll = document.getElementById("villasScroll");
 
-      const card = document.createElement("div");
-      card.className = "villa";
-      card.setAttribute("data-villa", String(v));
+  function makePage(start, end){
+    const page = document.createElement("div");
+    page.className = "villas-page";
+    const grid = document.createElement("div");
+    grid.className = "villas-grid";
+    for(let i=start; i<=end; i++) grid.appendChild(makeVillaCard(i));
+    page.appendChild(grid);
+    return page;
+  }
 
-      const imgDiv = document.createElement("div");
-      imgDiv.className = "villa-img";
+  // 6 + kalan (9 olduğu için 6 + 3)
+  villasScroll.innerHTML = "";
+  villasScroll.appendChild(makePage(1, Math.min(6, VILLA_COUNT)));
+  if(VILLA_COUNT > 6){
+    villasScroll.appendChild(makePage(7, VILLA_COUNT));
+  }
 
-      const body = document.createElement("div");
-      body.className = "villa-body";
-      body.innerHTML = `
-        <div class="villa-head">
-          <b>${villaLabel(v)}</b>
-          <span class="chip">Galeriyi Aç</span>
-        </div>
+  /* ================================
+    MODAL GALLERY
+  ================================= */
+  const modal = document.getElementById("modal");
+  const gallery = document.getElementById("gallery");
+  const modalTitle = document.getElementById("modalTitle");
+  const closeBtn = document.getElementById("closeBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  let currentVilla = 1;
 
-        <div class="features">
-          <div class="f"><span class="tick">${tickSvg}</span> Isıtmalı Havuz</div>
-          <div class="f"><span class="tick">${tickSvg}</span> Bahçe</div>
-          <div class="f"><span class="tick">${tickSvg}</span> Jakuzi</div>
-          <div class="f"><span class="tick">${tickSvg}</span> Şömine</div>
-          <div class="f"><span class="tick">${tickSvg}</span> Barbekü</div>
-          <div class="f"><span class="tick">${tickSvg}</span> Oyun Alanı</div>
-        </div>
+  function renderGallery(i){
+    const code = villaLabel(i);
+    modalTitle.textContent = `${code} Galerisi`;
+    gallery.innerHTML = "";
 
-        <div class="prices">
-          <div class="price"><div><small>Hafta İçi</small><b>${prices.weekday}</b></div></div>
-          <div class="price"><div><small>Hafta Sonu</small><b>${prices.weekend}</b></div></div>
-        </div>
-      `;
+    const imgs = photosForVilla(i);
+    imgs.forEach((p) => {
+      const wrap = document.createElement("div");
+      wrap.className = "ph";
 
-      // Kapak görseli
-      const dummyImg = document.createElement("img");
-      dummyImg.alt = `${villaLabel(v)} kapak`;
-      trySetImg(dummyImg,fileCandidates(coverNum), (src)=>{
-        if(src){
-          imgDiv.style.backgroundImage =
-            `linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.10)), url('${src}')`;
+      const img = document.createElement("img");
+      img.alt = `${code}`;
+      img.loading = "lazy";
+
+      trySetImg(img, candidatesForPhoto(p), (src)=>{
+        if(!src){
+          img.style.display = "none";
+          wrap.style.display = "grid";
+          wrap.style.placeItems = "center";
+          wrap.style.color = "rgba(2,6,23,.65)";
+          wrap.style.fontSize = "12px";
+          wrap.textContent = `Bulunamadı: ${p}`;
         }
       });
 
-      card.appendChild(imgDiv);
-      card.appendChild(body);
-      return card;
-    }
-
-    const villasScroll = document.getElementById("villasScroll");
-
-    function makePage(start, end){
-      const page = document.createElement("div");
-      page.className = "villas-page";
-      const grid = document.createElement("div");
-      grid.className = "villas-grid";
-
-      for(let v=start; v<=end; v++){
-        grid.appendChild(makeVillaCard(v));
-      }
-      page.appendChild(grid);
-      return page;
-    }
-
-    villasScroll.innerHTML = "";
-    villasScroll.appendChild(makePage(1,6));
-    villasScroll.appendChild(makePage(7,12));
-
-    /* =================================
-      MODAL GALLERY
-    ================================= */
-    const modal = document.getElementById("modal");
-    const gallery = document.getElementById("gallery");
-    const modalTitle = document.getElementById("modalTitle");
-    const closeBtn = document.getElementById("closeBtn");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    let currentVilla = 1;
-
-    function renderGallery(v){
-      modalTitle.textContent = `${villaLabel(v)} Galerisi`;
-      gallery.innerHTML = "";
-
-      const imgNums = photosForVilla(v);
-
-      imgNums.forEach((n) => {
-        const wrap = document.createElement("div");
-        wrap.className = "ph";
-
-        const img = document.createElement("img");
-        img.alt = `${villaLabel(v)} - ${n}`;
-        img.loading = "lazy";
-
-        trySetImg(img, imageCandidates(n), (src)=>{
-          if(!src){
-            img.style.display = "none";
-            wrap.style.display = "grid";
-            wrap.style.placeItems = "center";
-            wrap.style.color = "rgba(2,6,23,.65)";
-            wrap.style.fontSize = "12px";
-            wrap.textContent = `Bulunamadı: ${n}.*`;
-          }
-        });
-
-        wrap.appendChild(img);
-        gallery.appendChild(wrap);
-      });
-    }
-
-    function openGallery(v){
-      currentVilla = v;
-      renderGallery(v);
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeModal(){
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden","true");
-      document.body.style.overflow = "";
-    }
-
-    villasScroll.addEventListener("click", (e)=>{
-      const card = e.target.closest(".villa");
-      if(!card) return;
-      const v = Number(card.getAttribute("data-villa"));
-      openGallery(v);
-      villaSel.value = villaLabel(v);
-      document.getElementById("call").scrollIntoView({behavior:"smooth", block:"start"});
+      wrap.appendChild(img);
+      gallery.appendChild(wrap);
     });
+  }
 
-    prevBtn.addEventListener("click", () => {
-      const v = currentVilla === 1 ? VILLA_COUNT : currentVilla - 1;
-      currentVilla = v;
-      renderGallery(v);
-      villaSel.value = villaLabel(v);
-    });
+  function openGallery(i){
+    currentVilla = i;
+    renderGallery(i);
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
 
-    nextBtn.addEventListener("click", () => {
-      const v = currentVilla === VILLA_COUNT ? 1 : currentVilla + 1;
-      currentVilla = v;
-      renderGallery(v);
-      villaSel.value = villaLabel(v);
-    });
+  function closeModal(){
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+  }
 
-    closeBtn.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => { if(e.target === modal) closeModal(); });
+  villasScroll.addEventListener("click", (e)=>{
+    const card = e.target.closest(".villa");
+    if(!card) return;
+    const i = Number(card.getAttribute("data-villa"));
+    openGallery(i);
+    villaSel.value = villaLabel(i);
+    document.getElementById("call").scrollIntoView({behavior:"smooth", block:"start"});
+  });
 
-    window.addEventListener("keydown", (e) => {
-      if(!modal.classList.contains("open")) return;
-      if(e.key === "Escape") closeModal();
-      if(e.key === "ArrowLeft") prevBtn.click();
-      if(e.key === "ArrowRight") nextBtn.click();
-    });
+  prevBtn.addEventListener("click", () => {
+    currentVilla = (currentVilla === 1) ? VILLA_COUNT : currentVilla - 1;
+    renderGallery(currentVilla);
+    villaSel.value = villaLabel(currentVilla);
+  });
 
-    /* =================================
-      FORM -> WhatsApp
-    ================================= */
-    document.getElementById("resForm").addEventListener("submit", (e) => {
-      e.preventDefault();
+  nextBtn.addEventListener("click", () => {
+    currentVilla = (currentVilla === VILLA_COUNT) ? 1 : currentVilla + 1;
+    renderGallery(currentVilla);
+    villaSel.value = villaLabel(currentVilla);
+  });
 
-      const inVal = document.getElementById("checkin").value;
-      const outVal = document.getElementById("checkout").value;
-      const villa = document.getElementById("villaSel").value;
-      const phone = document.getElementById("phone").value.trim();
+  closeBtn.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => { if(e.target === modal) closeModal(); });
 
-      if(!inVal || !outVal){ alert("Lütfen giriş ve çıkış tarihlerini seçin."); return; }
-      if(new Date(outVal) <= new Date(inVal)){ alert("Çıkış tarihi, giriş tarihinden sonra olmalı."); return; }
-      if(!phone){ alert("Lütfen telefon numaranızı yazın."); return; }
+  window.addEventListener("keydown", (e) => {
+    if(!modal.classList.contains("open")) return;
+    if(e.key === "Escape") closeModal();
+    if(e.key === "ArrowLeft") prevBtn.click();
+    if(e.key === "ArrowRight") nextBtn.click();
+  });
 
-      const msg =
+  /* ================================
+    FORM -> WhatsApp
+  ================================= */
+  document.getElementById("resForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const inVal = document.getElementById("checkin").value;
+    const outVal = document.getElementById("checkout").value;
+    const villa = document.getElementById("villaSel").value;
+    const phone = document.getElementById("phone").value.trim();
+
+    if(!inVal || !outVal){ alert("Lütfen giriş ve çıkış tarihlerini seçin."); return; }
+    if(new Date(outVal) <= new Date(inVal)){ alert("Çıkış tarihi, giriş tarihinden sonra olmalı."); return; }
+    if(!phone){ alert("Lütfen telefon numaranızı yazın."); return; }
+
+    const msg =
 `Merhaba, Bungavillas için aranma talebi oluşturmak istiyorum.
 - Telefon: ${phone}
 - Villa: ${villa}
 - Giriş: ${inVal}
 - Çıkış: ${outVal}`;
 
-      window.open(`https://wa.me/905064173513?text=${encodeURIComponent(msg)}`, "_blank");
-    });
+    window.open(`https://wa.me/905064173513?text=${encodeURIComponent(msg)}`, "_blank");
+  });
 
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
+
 
 
 
